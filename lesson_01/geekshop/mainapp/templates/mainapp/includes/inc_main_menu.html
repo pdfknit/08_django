@@ -1,0 +1,15 @@
+<div class="header clearfix">
+<a href="index.html" class="logo"></a>
+<ul class="menu">
+{% for element, link in menu_links.items %}
+    <!--           По какой то волшебной причине у меня request.resolver_match.url_name для первых 2 элементов =None и только для контактов Contact-->
+    <li>
+        <a href = "/{{link}}" {% if link == request.resolver_match.url_name %} class ="active" {%endif%} >
+     {{element}}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+<a href="#" class="search"></a>
+<a href="#" class="basket"></a>
+</div>
