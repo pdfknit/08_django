@@ -294,6 +294,12 @@ html, body {
 .tab-content a .text img {
 	margin: 70px auto 0;
 }
+
+.tab-content img.product-image{
+	height: 270px;
+	width: 270px;
+}
+
 .tab-content a:hover .text {
 	display: block;
 }

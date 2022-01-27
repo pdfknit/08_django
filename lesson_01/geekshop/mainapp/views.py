@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render
+from .models import Product, ProductCategory
 
 from django.shortcuts import render
 
@@ -8,15 +8,19 @@ MENU_LINKS = {'домой': '', 'продукты': 'products', 'контакт�
 NOW = datetime.datetime.now()
 
 def main(request):
+    all_products = Product.objects.all()[:4]
     return render(request, 'mainapp/index.html', context={
         'title': 'Главная',
         'menu_links': MENU_LINKS,
         'today': NOW,
+        'products': all_products,
     })
 
 
 def products(request):
-    cat_menu = {'все':'', 'дом':'','офис':'','модерн':'','классика':'',}
+    # cat_menu = {'все':'', 'дом':'','офис':'','модерн':'','классика':'',}
+    cat_menu = ProductCategory.objects.all()
+    # products = Product.objects.all()
     products = [
         {
             'name': 'Лампа',
@@ -59,3 +63,6 @@ def contact(request):
         'title': 'Контакты',
         'menu_links': MENU_LINKS,
     })
+
+def category(request, pk):
+    return products(request)
