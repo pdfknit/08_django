@@ -17,17 +17,18 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 import mainapp.views as mainapp
-
+import authapp.views as authapp
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', mainapp.main),
+    path('', mainapp.main, name="main"),
     path('admin/', admin.site.urls),
     path('products/', mainapp.products),
     # path('products/', include('mainapp.urls', namespace="products")),
     path('contact/', mainapp.contact, name="contact"),
     path('products/<int:pk>', mainapp.category, name="category"),
+    path('auth/', include('authapp.urls', namespace="auth")),
 ]
 
 if settings.DEBUG:

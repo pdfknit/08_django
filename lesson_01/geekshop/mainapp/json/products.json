@@ -1,0 +1,32 @@
+[
+  {
+    'name': 'Лампа',
+    'description': 'Просто лампа',
+    'image': 'img/product-11.jpg',
+    'category': 'Стулья'
+  },
+  {
+    'name': 'Стул',
+    'description': 'Отличный стул',
+    'image': 'img/product-21.jpg',
+    'category': 'Стулья'
+  },
+  {
+    'name': 'Опять лампа',
+    'description': 'Лампа вашей мечты',
+    'image': 'img/product-31.jpg',
+    'category': 'Лампы'
+  },
+  {
+    'name': 'Нечто',
+    'description': 'Черного цвета',
+    'image': 'img/product-51.jpg',
+    'category': 'Стулья'
+  },
+  {
+    'name': 'Ваза',
+    'description': 'Молочно-белая',
+    'image': 'img/product-61.jpg',
+    'category': 'Стулья'
+  }
+]

@@ -9,7 +9,15 @@
         </a>
     </li>
 {% endfor %}
-</ul>
-<a href="#" class="search"></a>
-<a href="#" class="basket"></a>
+
+<li>
+{% if user.is_authenticated %}
+      <a href="/auth/logout">выйти</a>
+    {% else %}
+      <a href="/auth/login">войти</a>
+    {% endif %}
+</li>
+
+<!--<a href="#" class="search"></a>-->
+<!--<a href="#" class="basket"></a>-->
 </div>
