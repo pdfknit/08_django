@@ -300,6 +300,11 @@ html, body {
 	width: 270px;
 }
 
+.related-products img.productpage-image{
+	height: 368px;
+    width: 368px;
+    }
+
 .tab-content a:hover .text {
 	display: block;
 }

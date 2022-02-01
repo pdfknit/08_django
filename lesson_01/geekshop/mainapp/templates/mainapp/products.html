@@ -12,8 +12,9 @@
 <div class="details">
 			<div class="links clearfix">
 				<ul class="links-menu">
+					<li> <a href = "{% url 'products' %}" {% if request.resolver_match.view_name == "products" %} class ="active" {% endif %} > Все</a></li>
 					{% for category in cat_menu %}
-						<li> <a href = "#" > {{category}}</a></li>
+						<li> <a href = "{% url 'category' category.id %}" {% if request.resolver_match.view_name == "category" and request.resolver_match.kwargs.pk == category.id %} class ="active" {% endif %}> {{category}}</a></li>
 					{% endfor %}
 				</ul>
 
@@ -67,17 +68,19 @@
 					<a class="explore" href="#">показать все <img src={% static "/img/arrow.png" %} alt=""> </a>
 				</div>
 				<div class="related-products clearfix">
-					{% for product in products %}
-					<div class="block">
-						<a href="#"><img src="{% static  product.image %}" alt="">
-							<div class="text">
-								<img src={% static "img/icon-hover.png"%} alt="img">
-								<h4>{{product.name}}</h4>
-								<p>{{product.description}} </p>
-							</div>
-						</a>
-					</div>
-					{% endfor%}
+					{% include "mainapp/includes/inc_include_product.html"%}
+<!--					{% for product in products %}-->
+<!--					<div class="block">-->
+<!--						<p>{{ product }}</p>-->
+<!--						<a href="#"><img src="{{ media_root }}{{ product.image }}" alt="">-->
+<!--							<div class="text">-->
+<!--								<img src={% static "img/icon-hover.png"%} alt="img">-->
+<!--								<h4>{{product.name}}</h4>-->
+<!--								<p>{{product.description}} </p>-->
+<!--							</div>-->
+<!--						</a>-->
+<!--					</div>-->
+<!--					{% endfor%}-->
 
 
 
