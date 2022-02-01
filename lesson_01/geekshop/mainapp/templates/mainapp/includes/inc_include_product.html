@@ -1,0 +1,13 @@
+
+<p>В корзине {{basket|length}}</p>
+{% for product in products %}
+    <div class="block">
+        <a href="{% url 'basket:add' product.pk %}"><img class="productpage-image" src="/media/{{ product.image }}" alt="{{ product.name }}">
+            <div class="text">
+                <img src="/static/img/icon-hover.png" alt="img">
+                <h4>{{ product.name }} </h4>
+                <p>{{ product.description }} </p>
+            </div>
+        </a>
+    </div>
+{% endfor %}

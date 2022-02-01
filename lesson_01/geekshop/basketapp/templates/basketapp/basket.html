@@ -1,0 +1,7 @@
+{%load static %}
+{% for item in basket %}
+{{item}} <a href = "{% url 'basket:add' item.pk %}">+1</a> <a href = "{% url 'basket:remove' item.id %}">Удалить</a>
+  <br/>
+{% endfor %}
+
+В корзине {{ basket|length }} тов.
