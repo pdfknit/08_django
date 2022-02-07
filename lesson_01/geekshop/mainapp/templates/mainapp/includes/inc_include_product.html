@@ -1,5 +1,5 @@
 
-<p>В корзине {{basket|length}}</p>
+
 {% for product in products %}
     <div class="block">
         <a href="{% url 'basket:add' product.pk %}"><img class="productpage-image" src="/media/{{ product.image }}" alt="{{ product.name }}">

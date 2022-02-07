@@ -11,7 +11,7 @@
     </li>
 {% endfor %}
 {% if user.is_authenticated %}
-<li> <a href="{url 'basket:basket'} class="basket">
+<li> <a href="{% url 'basket:view' %}">
     Корзина(
     {% if user.basket.all|length %}
         {{ user.basket.all|length }}
