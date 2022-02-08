@@ -3,24 +3,21 @@
 <a href="index.html" class="logo"></a>
 <ul class="menu">
 {% for element, link in menu_links.items %}
-    <!--           По какой то волшебной причине у меня request.resolver_match.url_name для первых 2 элементов =None и только для контактов Contact-->
     <li>
         <a href = "/{{link}}" {% if link == request.resolver_match.view_name %} class ="active" {%endif%} >
      {{element}}
         </a>
     </li>
 {% endfor %}
+
 {% if user.is_authenticated %}
 <li> <a href="{% url 'basket:view' %}">
-    Корзина(
-    {% if user.basket.all|length %}
-        {{ user.basket.all|length }}
-    {% else %}
-        0
-    {% endif %} )
+    {{ user.basket.total_quantity}}
+    тов. на сумму {{ user.basket.total_cost}} руб.
 
     </a>
 </li>
+
 <li> <a href="/auth/logout">выйти</a></li>
 
 {% else %}
