@@ -4,23 +4,29 @@ from authapp.forms import ShopUserRegisterForm
 from authapp.forms import  ShopUserEditForm
 from django.contrib import auth
 from django.urls import reverse
+from django.contrib import messages
 
 
 def login(request):
     title = 'вход'
+
     if request.method == 'POST':
         login_form = ShopUserLoginForm(data=request.POST)
         if login_form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
 
+
             user = auth.authenticate(username=username, password=password)
             if user and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('main'))
+                if 'next' in request.GET.keys():
+                    return HttpResponseRedirect(request.GET['next'])
+                else:
+                    return HttpResponseRedirect(reverse('main'))
     else:
         login_form = ShopUserLoginForm()
-    content = {'title': title, 'login_form': login_form}
+    content = {'title': title, 'login_form': login_form, }
     return render(request, 'authapp/login.html', content)
 
 

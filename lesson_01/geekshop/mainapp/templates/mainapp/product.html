@@ -1,0 +1,67 @@
+{% extends 'mainapp/base.html'%}
+{% block header %}
+{%load static %}
+<div class="hero-white">
+
+	{% include "mainapp/includes/inc_main_menu.html"%}
+
+</div>
+{% endblock %}
+
+{% block content %}
+  <div class="details">
+	  <div class="links clearfix">
+				<ul class="links-menu">
+					<li> <a href = "{% url 'products' %}" {% if request.resolver_match.view_name == "products" %} class ="active" {% endif %} > Все</a></li>
+					{% for category in cat_menu %}
+						<li> <a href = "{% url 'category' category.id %}" {% if request.resolver_match.view_name == "category" and request.resolver_match.kwargs.pk == category.id %} class ="active" {% endif %}> {{category}}</a></li>
+					{% endfor %}
+				</ul>
+
+	  </div>
+
+
+    <div class="details-products">
+      <div class="details-slider">
+        <div class="slider-product">
+          <img src="/media/{{ product.image }}"
+               alt="{{ product.description }}">
+        </div>
+<!--        <div class="slider-control">-->
+<!--          <div class="block">-->
+<!--            <a href="#">-->
+<!--              <img src="/media/{{ product.image }}" alt="вариант 1">-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="block">-->
+<!--            <a href="#">-->
+<!--              <img src="/media/{{ product.image }}" alt="вариант 2">-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="block">-->
+<!--            <a href="#">-->
+<!--              <img src="/media/{{ product.image }}" alt="вариант 3">-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+
+      <div class="description">
+        <h3 class="big-bold">{{ product.name }}</h3>
+        <br>
+        <p class="price"> {{ product.price }} <span>руб</span></p>
+        <a href="{% url 'basket:add' product.pk %}" class="red-button">
+          заказать
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </a>
+        <div class="description-text">
+          {{ product.description }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="clr"></div>
+
+{% endblock %}

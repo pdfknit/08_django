@@ -140,6 +140,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 AUTH_USER_MODEL = 'authapp.ShopUser'
 
 #login
-LOGIN_URL = '/login/'
+LOGIN_URL = 'auth:login'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
