@@ -1,8 +1,8 @@
-
-
 {% for product in products %}
     <div class="block">
-        <a href="{% url 'products:product' product.pk %}"><img class="productpage-image" src="/media/{{ product.image }}" alt="{{ product.name }}">
+
+        <a href="{% url 'products:product' product.pk %}">
+                <img class="productpage-image" src="/media/{{ product.image }}" alt="{{ product.name }}">
             <div class="text">
                 <img src="/static/img/icon-hover.png" alt="img">
                 <h4>{{ product.name }} </h4>

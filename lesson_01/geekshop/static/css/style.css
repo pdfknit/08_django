@@ -1086,3 +1086,7 @@ td:first-child {
     opacity: 0.4;
     color: tomato;
 }
+
+.admin_menu {
+width: 100%;
+}

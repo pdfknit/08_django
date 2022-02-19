@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html'%}
 {% block header %}
 {%load static %}
+{% load mainapp%}
 <div class="hero-white">
 
 	{% include "mainapp/includes/inc_main_menu.html"%}
@@ -13,7 +14,7 @@
 			<div class="links clearfix">
 				<ul class="links-menu">
 					<li> <a href = "{% url 'products' %}" {% if request.resolver_match.view_name == "products" %} class ="active" {% endif %} > Все</a></li>
-					{% for category in cat_menu %}
+					{% for category in categories_menu %}
 						<li> <a href = "{% url 'category' category.id %}" {% if request.resolver_match.view_name == "category" and request.resolver_match.kwargs.pk == category.id %} class ="active" {% endif %}> {{category}}</a></li>
 					{% endfor %}
 				</ul>
@@ -23,7 +24,9 @@
 			<div class="details-products">
 				<div class="details-slider">
 					<div class="slider-product">
+						{% if hot.image %}
 						<img src="{{ hot.image.url }}">
+						{% endif %}
 					</div>
 					<div class="slider-control">
 						<div class="block">
@@ -47,7 +50,7 @@
 				<div class="description">
 					<h3 class="big-bold">{{ hot.name }}</h3>
 					<h3 class="red"> Горячее предложение </h3>
-					<p class="price"> {{ hot.price }} <span>руб</span></p>
+					<p class="price"> {{ hot.price|price_filter }} <span>руб</span></p>
 					<a href="{% url 'basket:add' hot.pk %}" class="red-button">
 						заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
 					</a>
@@ -67,22 +70,28 @@
 			<div class="related">
 				<div class="title clearfix">
 					<h2>Похожие продукты</h2>
-					<a class="explore" href="#">показать все <img src={% static "/img/arrow.png" %} alt=""> </a>
+					{% if page.has_next %}
+						<a class="explore" href="{% url 'products:category_with_page' category.id page.next_page_number %}">
+						    <img src={% static "/img/arrow.png" %} alt=""> </a>
+                    {% endif %}
+
+
+					{% if paginator %}
+						<p class="explore">
+							    &nbspСтраница {{ page.number }} из {{ paginator.num_pages }}&nbsp
+						</p>
+					{% endif %}
+
+					{% if page.has_previous %}
+						<a class="explore" href="{% url 'products:category_with_page' category.id page.previous_page_number %}">
+							<img src={% static "/img/arrow-previous.png" %} alt="">
+						</a>
+					{% endif %}
 				</div>
 				<div class="related-products clearfix">
+
 					{% include "mainapp/includes/inc_include_product.html"%}
-<!--					{% for product in products %}-->
-<!--					<div class="block">-->
-<!--						<p>{{ product }}</p>-->
-<!--						<a href="#"><img src="{{ media_root }}{{ product.image }}" alt="">-->
-<!--							<div class="text">-->
-<!--								<img src={% static "img/icon-hover.png"%} alt="img">-->
-<!--								<h4>{{product.name}}</h4>-->
-<!--								<p>{{product.description}} </p>-->
-<!--							</div>-->
-<!--						</a>-->
-<!--					</div>-->
-<!--					{% endfor%}-->
+
 
 
 
