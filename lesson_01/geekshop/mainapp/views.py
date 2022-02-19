@@ -1,13 +1,9 @@
 import datetime
 import random
-
 from django.conf.global_settings import MEDIA_ROOT
-
 from .models import Product, ProductCategory
 from django.shortcuts import render, get_object_or_404
-
-# from ..geekshop.settings import MEDIA_ROOT
-# from ..basketapp.models import BasketManager
+from django.core.paginator import Paginator, EmptyPage
 
 MENU_LINKS = {'домой': '', 'продукты': 'products', 'контакты': 'contact'}
 NOW = datetime.datetime.now()
@@ -66,16 +62,25 @@ def product(request, pk):
     return render(request, 'mainapp/product.html', content)
 
 
-def category(request, pk):
-    cat_menu = ProductCategory.objects.all()
+def category(request, pk, page=1):
+    categories_menu = ProductCategory.objects.all()
     category = get_object_or_404(ProductCategory, pk=pk)
     products = Product.objects.filter(category=category)
+    paginator = Paginator(products, 3)
+
+    try:
+        products_page = paginator.page(page)
+    except EmptyPage:
+        products_page = paginator.page(paginator.num_pages)
 
     return render(request, 'mainapp/products.html', context={
         'title': 'Продукты',
         'menu_links': MENU_LINKS,
-        'products': products[:4],
-        'cat_menu': cat_menu,
+        'products': products_page,
+        'categories_menu': categories_menu,
         'media_root': MEDIA_ROOT,
         'hot': get_hot_product(products),
+        'page': products_page,
+        'paginator': paginator,
+        'category': category,
     })

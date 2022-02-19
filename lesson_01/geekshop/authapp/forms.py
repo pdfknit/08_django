@@ -51,7 +51,7 @@ class ShopUserEditForm(UserChangeForm):
 
     def clean_age(self):
         data = self.cleaned_data['age']
-        if data < 16:
+        if data < 18:
             raise forms.ValidationError("Недоступно для пользователей 16-")
         return data
 

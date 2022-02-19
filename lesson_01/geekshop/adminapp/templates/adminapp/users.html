@@ -3,12 +3,17 @@
 
 {% block content %}
 <div class="users_list">
-    <button class="new_user">
+    <button>
         <a href="{% url 'admin:user_create' %}">
             новый пользователь
         </a>
     </button>
-    {% for object in objects %}
+
+    {% if page_obj.has_previous %} <a href=""> Назад </a> {% endif %}
+        <h3 class ="green"> Страница {{ page_obj.number }} из {{ paginator.num_pages }} </h3>
+    {% if page_obj.has_next %} Вперед {% endif %}
+
+    {% for object in object_list %}
     <div
             class="user_record {% if not object.is_active %}not_active{% endif %}">
         <img
