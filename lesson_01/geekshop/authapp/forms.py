@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from .models import ShopUser
 from django import forms
+import hashlib
+import os
 # from django.forms.widgets import HiddenInput
 
 
@@ -30,8 +32,16 @@ class ShopUserRegisterForm(UserCreationForm):
         data = self.cleaned_data['age']
         if data < 18:
             raise forms.ValidationError("Вы слишком молоды!")
-
         return data
+
+    def save(self):
+        user = super().save()
+        user.is_active = False
+        user.activation_key = hashlib.md5(user.email.encode('utf-8') + os.urandom(16)).hexdigest()
+        user.save()
+        return user
+
+
 
 
 class ShopUserEditForm(UserChangeForm):

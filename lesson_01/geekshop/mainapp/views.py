@@ -5,7 +5,7 @@ from .models import Product, ProductCategory
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage
 
-MENU_LINKS = {'домой': '', 'продукты': 'products', 'контакты': 'contact'}
+
 NOW = datetime.datetime.now()
 
 
@@ -13,7 +13,6 @@ def main(request):
     all_products = Product.objects.all()[:5]
     return render(request, 'mainapp/index.html', context={
         'title': 'Главная',
-        'menu_links': MENU_LINKS,
         'today': NOW,
         'products': all_products,
     })
@@ -27,7 +26,6 @@ def products(request):
 
     return render(request, 'mainapp/products.html', context={
         'title': 'Продукты',
-        'menu_links': MENU_LINKS,
         'products': products[:4],
         'cat_menu': cat_menu,
         'media_root': MEDIA_ROOT,
@@ -42,7 +40,6 @@ def get_hot_product(products):
 def contact(request):
     return render(request, 'mainapp/contact.html', context={
         'title': 'Контакты',
-        'menu_links': MENU_LINKS,
     })
 
 
@@ -54,7 +51,6 @@ def product(request, pk):
         'title': title,
         'links_menu': ProductCategory.objects.all(),
         'product': get_object_or_404(Product, pk=pk),
-        'menu_links': MENU_LINKS,
         'cat_menu': cat_menu,
         # 'basket': get_basket(request.user),
     }
@@ -75,7 +71,6 @@ def category(request, pk, page=1):
 
     return render(request, 'mainapp/products.html', context={
         'title': 'Продукты',
-        'menu_links': MENU_LINKS,
         'products': products_page,
         'categories_menu': categories_menu,
         'media_root': MEDIA_ROOT,
