@@ -8,6 +8,7 @@
         {{ login_form.as_p }}
         <br>
         <input class="form-control" type="submit" value="войти">
+        <a href="{% url "social:begin" "github" %}">Войти через GitHub</a>
     </form>
 
 {% endblock %}
