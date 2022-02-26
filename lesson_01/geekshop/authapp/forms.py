@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from .models import ShopUser
+from .models import ShopUser, ShopUserProfile
 from django import forms
 import hashlib
 import os
@@ -65,12 +65,6 @@ class ShopUserEditForm(UserChangeForm):
             raise forms.ValidationError("Недоступно для пользователей 16-")
         return data
 
-    # def clean_city(self):
-    #     data = self.cleaned_data['city']
-    #     if self.cleaned_data['city'] == 'Казань':
-    #         raise forms.ValidationError("Магазина в Казани нет")
-    #     return data
-
     def clean_phone(self):
         data = self.cleaned_data['phone']
         if len(data) < 11:
@@ -79,3 +73,13 @@ class ShopUserEditForm(UserChangeForm):
         if not data.startswith('8'):
             raise forms.ValidationError("Номер должен начинаться с 8")
         return data
+
+class ShopUserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ShopUserProfile
+        fields = ('about', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'

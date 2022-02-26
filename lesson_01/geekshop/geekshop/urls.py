@@ -23,11 +23,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', mainapp.main, name="main"),
-    # path('admin/', admin.site.urls),
+    path('', include('social_django.urls', namespace="social")),
     path('admin/', include('adminapp.urls', namespace="admin")),
     path('products/', mainapp.products, name='products'),
     path('products/', include('mainapp.urls', namespace="products")),
-    # path('product/<int:pk>', mainapp.product, name="product"),
     path('contact/', mainapp.contact, name="contact"),
     path('products/<int:pk>', mainapp.category, name="category"),
     path('auth/', include('authapp.urls', namespace="auth")),
