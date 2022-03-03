@@ -71,6 +71,11 @@ html, body {
 	border-bottom: 3px solid #212121;
 }
 
+.menu li.dropdown-li a:hover {
+	border-bottom: none;
+}
+
+
 .search {
 	display: block;
 	width: 23px;
@@ -1090,3 +1095,5 @@ td:first-child {
 .admin_menu {
 width: 100%;
 }
+
+
