@@ -11,19 +11,35 @@
 {% endfor %}
 
 {% if user.is_authenticated %}
-<li> <a href="{% url 'basket:view' %}">
-    {{ user.basket.total_quantity}}
-    тов. на сумму {{ user.basket.total_cost}} руб.
+   <li>
+       <div class="dropdown">
+           <a class="dropdown-toggle" href="" data-toggle="dropdown">
+               {{ user.first_name|default:'Пользователь' }}
+               <span class="caret"></span>
+           </a>
+           <ul class="dropdown-menu">
+               <li class="dropdown-li">
+                   <a href="{% url 'auth:edit' %}">
+                       профиль
+                   </a>
+               </li>
+               <li class="dropdown-li">
+                   <a href="{% url 'ordersapp:orders_list' %}">
+                       заказы
+                   </a>
+               </li>
+           </ul>
+       </div>
+   </li>
 
-    </a>
-</li>
-{% if user.is_superuser %}
-    <li> <a href="{% url 'admin:users' %}">
-        Админка
-        </a>
-    </li>
-{% endif %}
-<li> <a href="/auth/logout">выйти</a></li>
+    {% if user.is_superuser %}
+        <li> <a href="{% url 'admin:users' %}">
+            Админка
+            </a>
+        </li>
+    {% endif %}
+
+    <li> <a href="/auth/logout">выйти</a></li>
 
 {% else %}
     <a href="/auth/login">войти</a>
