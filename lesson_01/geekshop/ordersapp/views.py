@@ -24,6 +24,7 @@ class OrderDetail(DetailView):
         context['title'] = 'заказ/просмотр'
         return context
 
+
 class OrderEditMixin:
     def make_formset(self, instance=None):
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
@@ -39,7 +40,14 @@ class OrderEditMixin:
                     for num, form in enumerate(formset.forms):
                         form.initial['product'] = basket_items[num].product
                         form.initial['quantity'] = basket_items[num].quantity
+                        form.initial['price'] = basket_items[num].price
+                        # form.initial['result_price'] = basket_items[num].result_price
                     basket_items.delete()
+
+        for form in formset.forms:
+            if form.instance.pk:
+                form.initial['price'] = form.instance.product.price
+                # form.initial['result_price'] = form.instance.product.price
         return formset
 
     def save_formset(self, form, formset, instance=None):
@@ -72,7 +80,6 @@ class OrderItemsCreate(OrderEditMixin, CreateView):
         return super().form_valid(form)
 
 
-
 class OrderUpdate(OrderEditMixin, UpdateView):
     model = Order
     fields = []
@@ -89,6 +96,7 @@ class OrderUpdate(OrderEditMixin, UpdateView):
         self.save_formset(form, orderitems, instance=self.object)
         return super(OrderUpdate, self).form_valid(form)
 
+
 class OrderDelete(DeleteView):
     model = Order
     success_url = reverse_lazy('ordersapp:orders_list')
@@ -103,4 +111,3 @@ def order_forming_complete(request, pk):
         order.status = 'in_process'
     order.save()
     return HttpResponseRedirect(reverse('ordersapp:orders_list'))
-

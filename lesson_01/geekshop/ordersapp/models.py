@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
+from django.db.models.signals import pre_save, pre_delete
+from django.dispatch import receiver
 from mainapp.models import Product
 from basketapp.models import Basket
 
@@ -59,3 +61,18 @@ class OrderItem(models.Model):
     @property
     def cost(self):
         return self.product.price * self.quantity
+
+@receiver(pre_save, sender=OrderItem)
+def update_quantity_on_save(sender, update_fields, instance, **kwargs):
+    if instance.pk:
+        old_item = OrderItem.objects.get(pk=instance.pk)
+        instance.product.quantity -= instance.quantity - old_item.quantity
+    else:
+        instance.product.quantity -= instance.quantity
+        pass
+    instance.product.save()
+
+@receiver(pre_delete, sender=OrderItem)
+def update_quantity_on_delete(sender, instance, **kwargs):
+    instance.product.quantity += instance.quantity
+    instance.product.save()
