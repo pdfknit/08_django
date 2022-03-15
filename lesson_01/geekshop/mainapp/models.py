@@ -25,6 +25,7 @@ class Product(models.Model):
     description = models.CharField(max_length=128, verbose_name='Описание', blank=True)
     color = models.CharField(max_length=10, choices=ChoiceColor.choices, default=ChoiceColor.NO, verbose_name='Цвет')
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
 
     def __str__(self):
         return self.name

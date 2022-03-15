@@ -22,14 +22,14 @@ def add(request, pk):
     if not basket:
         basket = Basket(user=request.user, product=product)
 
-    basket.quantity += 1
     basket.save()
+    basket.quantity += 1
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def remove(request, pk):
-    basket = get_object_or_404(Product, pk=pk)
+    basket = Basket.objects.get(pk=pk)
     basket.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
