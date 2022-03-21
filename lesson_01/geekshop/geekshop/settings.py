@@ -22,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-7t4)sk8-7tevkc_p7^uzp_*yayg5dkhtf6$3+r@(dow9ib)z(%'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DJANGO_PRODUCTION = bool(os.environ.get('DJANGO_PRODUCTION', False))
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = not DJANGO_PRODUCTION
+
+ALLOWED_HOSTS = ['127.0.0.1'] if DJANGO_PRODUCTION or []
 
 # Application definition
 
@@ -83,13 +85,31 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+if DJANGO_PRODUCTION:
+    DJANGO_DB_ENGINE = os.environ.get('DJANGO_DB_ENGINE', 'django')
+    DJANGO_DB_NAME = os.environ.get('DJANGO_DB_NAME', 'django')
+    DJANGO_DB_USER = os.environ.get('DJANGO_DB_USER', 'django')
+    DJANGO_DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD', 'django')
+    DJANGO_DB_HOST = os.environ.get('DJANGO_DB_HOST', '127.0.0.1')
+    DJANGO_DB_PORT = os.environ.get('DJANGO_DB_PORT', '5432')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'geekshop',
+            'USER': 'django',
+            'PASSWORD': '',
+            'HOST':  '127.0.0.1',
+            'PORT': 5432,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -168,10 +188,8 @@ with open("./geekshop/credentials.json", 'r') as f:
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/email-messages/'
 
-
 # SOCIAL_AUTH_GITHUB_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-SOCIAL_AUTH_GITHUB_OAUTH2_SCOPE = ['user',]
-
+SOCIAL_AUTH_GITHUB_OAUTH2_SCOPE = ['user', ]
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
