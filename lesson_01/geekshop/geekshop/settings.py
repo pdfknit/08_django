@@ -88,7 +88,6 @@ WSGI_APPLICATION = 'geekshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 if DJANGO_PRODUCTION:
-    DJANGO_DB_ENGINE = os.environ.get('DJANGO_DB_ENGINE', 'django')
     DJANGO_DB_NAME = os.environ.get('DJANGO_DB_NAME', 'django')
     DJANGO_DB_USER = os.environ.get('DJANGO_DB_USER', 'django')
     DJANGO_DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD', 'django')
