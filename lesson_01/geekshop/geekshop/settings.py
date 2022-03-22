@@ -14,6 +14,8 @@ from pathlib import Path
 import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import django.db.backends.postgresql.base
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +29,7 @@ DJANGO_PRODUCTION = bool(os.environ.get('DJANGO_PRODUCTION', False))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not DJANGO_PRODUCTION
 
-ALLOWED_HOSTS = ['127.0.0.1'] if DJANGO_PRODUCTION or []
+ALLOWED_HOSTS = ['127.0.0.1'] if DJANGO_PRODUCTION else []
 
 # Application definition
 
@@ -95,12 +97,12 @@ if DJANGO_PRODUCTION:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'geekshop',
-            'USER': 'django',
-            'PASSWORD': '',
-            'HOST':  '127.0.0.1',
-            'PORT': 5432,
+            'ENGINE': 'django.db.backends.postgresql.base.psycopg2',
+            'NAME': DJANGO_DB_NAME,
+            'USER': DJANGO_DB_USER,
+            'PASSWORD': DJANGO_DB_PASSWORD,
+            'HOST':  DJANGO_DB_HOST,
+            'PORT': DJANGO_DB_PORT,
         }
     }
 else:
