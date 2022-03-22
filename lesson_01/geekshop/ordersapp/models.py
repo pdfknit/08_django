@@ -56,7 +56,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
+    quantity = models.PositiveIntegerField(verbose_name='количество', default=1)
 
     @property
     def cost(self):

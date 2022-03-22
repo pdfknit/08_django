@@ -11,6 +11,11 @@ class ProductCategory(models.Model):
         return self.name
 
 
+class ProductManager(models.Manager):
+    def active_items(self):
+        return Product.objects.filter(is_active=True)
+
+
 class Product(models.Model):
     class ChoiceColor(models.TextChoices):
         NO = 'не указан', gz('не указан')
@@ -26,19 +31,9 @@ class Product(models.Model):
     color = models.CharField(max_length=10, choices=ChoiceColor.choices, default=ChoiceColor.NO, verbose_name='Цвет')
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
+    is_active = models.BooleanField(verbose_name='активный', default=True)
+
+    objects = ProductManager()
 
     def __str__(self):
         return self.name
-
-# class Contact:
-#     city = ...
-#     phone = ...
-#     email = ...
-#     adress = ...
-#
-#
-# class Slider:
-#     subtitle = ...
-#     img = ...
-#     h1 = ...
-#     button = ...
