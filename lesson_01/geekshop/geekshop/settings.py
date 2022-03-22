@@ -180,7 +180,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.github.GithubOAuth2'
 ]
-with open("./geekshop/credentials.json", 'r') as f:
+with open("./geekshop/credentials.json", 'rb', errors='ignore') as f:
     file = json.load(f)
     SOCIAL_AUTH_GITHUB_KEY = file['SOCIAL_AUTH_GITHUB_KEY']
     SOCIAL_AUTH_GITHUB_SECRET = file['SOCIAL_AUTH_GITHUB_SECRET']
