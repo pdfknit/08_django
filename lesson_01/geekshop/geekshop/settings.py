@@ -99,7 +99,7 @@ if DJANGO_PRODUCTION:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql.base.psycopg2',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': DJANGO_DB_NAME,
             'USER': DJANGO_DB_USER,
             'PASSWORD': DJANGO_DB_PASSWORD,
