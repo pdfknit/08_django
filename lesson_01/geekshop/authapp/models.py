@@ -28,7 +28,7 @@ class ShopUserProfile(models.Model):
     )
     user = models.OneToOneField(ShopUser, null=False, on_delete=models.CASCADE, db_index=True, related_name='profile')
     about = models.TextField(verbose_name="О себе", blank=True)
-    gender = models.CharField(verbose_name="Гендер", choices=GENDER_CHOICES, max_length=10)
+    gender = models.CharField(verbose_name="Гендер", choices=GENDER_CHOICES, max_length=10, blank=True)
 
 @receiver(post_save, sender=ShopUser)
 def create_user_profile(sender, instance, created, **kwargs):
