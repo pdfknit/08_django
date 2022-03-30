@@ -22,6 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('__debug__/', include('debug_toolbar.urls')),
     path('', mainapp.main, name="main"),
     path('', include('social_django.urls', namespace="social")),
     path('admin/', include('adminapp.urls', namespace="admin")),
