@@ -224,5 +224,11 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.profiling.ProfilingPanel',
     # не могу добавить, так как джанго новый импорт не работет from django.utils.translation import gettext_lazy as _
     # "template_profiler_panel.panels.template.TemplateProfilerPanel",
-
 ]
+
+def show_toolbar(request):
+    return True
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': True
+}
