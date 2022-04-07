@@ -224,7 +224,6 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
-    # не могу добавить, так как джанго новый импорт не работет from django.utils.translation import gettext_lazy as _
     "template_profiler_panel.panels.template.TemplateProfilerPanel",
 ]
 
