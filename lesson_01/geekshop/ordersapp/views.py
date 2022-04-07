@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView
 from .models import Order, OrderItem
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from .forms import OrderItemForm, OrderForm
 from mainapp.models import Product
@@ -15,6 +17,10 @@ class OrderList(ListView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
+
+    @method_decorator(login_required())
+    def dispatch(self, *args, **kwargs):
+        return super(ListView, self).dispatch(*args, **kwargs)
 
 
 class OrderDetail(DetailView):
