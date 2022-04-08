@@ -2,3 +2,4 @@
 /lesson_01/geekshop/tmp/
 !/lesson_01/geekshop/credentials.json
 /bootstrap-3.3.7-dist.zip
+!/lesson_01/geekshop/geekshop_urls.txt
