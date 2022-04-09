@@ -1,7 +1,7 @@
 {% extends 'mainapp/base.html'%}
 {% block header %}
 {% load mainapp %}
-
+{% load cache %}
 <div class="hero">
 	{% include "mainapp/includes/inc_main_menu.html"%}
 	<h1>{% sample title %}</h1> {{ title | sample_filter }}
@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+{% cache 3600 contact_page_content %}
 <div class="location">
 	<div class="location-1">
 		<i class="fa fa-map-marker fa-5x"></i>
@@ -59,4 +60,5 @@
 		</div>
 	</div>
 </div>
+{% endcache %}
 {% endblock %}

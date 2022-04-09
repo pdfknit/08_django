@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.conf import settings
 from mainapp.models import Product
 
@@ -18,9 +15,11 @@ class BasketManager(models.Manager):
     def get_queryset(self):
         return BasketQuerySet(self.model, using=self._db)
 
+
     def total_cost(self):
         basket_items = self.all()
         return sum(item.quantity * item.product.price for item in basket_items)
+
 
     def total_quantity(self):
         basket_items = self.all()
